@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<a href="{% url 'expenses:expense-list' %}">Go to expenses list</a>
+<br>
+<a href="{% url 'expenses:categories-create' %}">add</a>
+<br>
+<br>
+<form method="GET">
+    <select name="paginate" id="">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="10">10</option>
+        <option value="20">20</option>
+    </select>
+    <input type="submit" value="Paginate">
+</form>
+<br>
+
+<table border="1">
+    <thead>
+      <tr>
+        <th>no.</th>
+        <th>Category</th>
+        <th>Summary</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for obj in paginated %}
+        <tr>
+            <td>{{ paginated.start_index|add:forloop.counter0 }}.</td>
+            <td>{{ obj }}</td>
+            {% if obj.name in summary_per_category %}
+                {% for category, total in summary_per_category.items %}
+                    {% if obj.name == category %}
+                        <td>{{total|floatformat:2}}</td>
+                    {% endif %}
+                {% endfor %}
+            {% else %}
+                <td>-----------</td>
+            {% endif %}
+            <td><a href="{% url 'expenses:category-edit' obj.id %}">edit</a></td>
+            <td><a href="{% url 'expenses:category-delete' obj.id %}">delete</a></td>
+            <td><a href="{% url 'expenses:category-details' obj.id %}">details</a></td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% include "_pagination.html" %}
+
+
+{% endblock %}

@@ -1,0 +1,22 @@
+<div class="pagination">
+    <span class="step-links">
+        {% if paginated.has_previous %}
+            <a href="?paginate={{ paginator.per_page }}&page=1">first</a>
+            <a href="?paginate={{ paginator.per_page }}&page={{ paginated.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ paginated.number }} of {{ paginated.paginator.num_pages }}.
+        </span>
+
+        {% if paginated.has_next %}
+            <a href="?paginate={{ paginator.per_page }}&page={{ paginated.next_page_number }}">next</a>
+            <a href="?paginate={{ paginator.per_page }}&page={{ paginated.paginator.num_pages }}">last</a>
+        {% endif %}
+    </span>
+    <br>
+    <span>
+        Total items: {{ objects|length }}
+    </span>
+</div>
+

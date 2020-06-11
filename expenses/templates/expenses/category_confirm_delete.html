@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>Confirm removing "{{object}}"</h1>
+
+<h4>Total expenses summary for "{{object}}": {{ summary }}</h4>
+
+<form method="post" action="">
+  {% csrf_token %}
+  {{form.as_p}}
+  <button type="submit">delete</button>
+</form>
+
+
+{% endblock %}

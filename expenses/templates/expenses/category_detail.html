@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<td><a href="{% url 'expenses:categories-list' %}">Go back to category list</a></td>
+<br><br>
+
+<table border="1">
+  <caption>Summary per year/month</caption>
+  <tr>
+    {% for year_month, total in summary_per_year_month.items %}<td>{{year_month|date:"Y-m"}}: {{total|floatformat:2}}</td>{% endfor %}
+  </tr>
+</table>
+
+
+{% endblock %}
